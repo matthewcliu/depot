@@ -2,6 +2,7 @@ require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
   #This adds a fixture. Same thing as Factory for Rspec but requires YML
+  #Calling products(:ruby) on this page will load the fixture data - see below for testing unique title
   fixtures :products
   
   #Testing attributes not empty
@@ -22,12 +23,12 @@ class ProductTest < ActiveSupport::TestCase
     product.price = -1
     assert product.invalid?
     #How does this error message work?
-    assert_equal "must be greater than or equal to 0.01",
+    assert_equal "must be equal or greater than $0.01",
     product.errors[:price].join('; ')
     
     product.price = 0
     assert product.invalid?
-    assert_equal "must be greater than or equal to 0.01",
+    assert_equal "must be equal or greater than $0.01",
     product.errors[:price].join('; ')
 
     product.price = 1
@@ -59,5 +60,17 @@ class ProductTest < ActiveSupport::TestCase
       assert new_product(imageurl).invalid?, "#{imageurl} shouldn't be valid"
     end
   end
+  
+  test "product is not valid without a unique title" do
+    #This inserted a previously used title into the new product
+    product = Product.new(:title  => products(:ruby).title,
+                          :description => 'yyy',
+                          :price => 1,
+                          :image_url => "fred.gif")
+    #product.save will now fail                      
+    assert !product.save
+    assert_equal "has already been taken", product.errors[:title].join(';')
+  end
+                          
 
 end
