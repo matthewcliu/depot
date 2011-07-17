@@ -57,7 +57,10 @@ class LineItemsController < ApplicationController
     respond_to do |format|
       if @line_item.save
         #Changes the redirect to the current cart that the current line item has been saved to
-        format.html { redirect_to(@line_item.cart) }
+        format.html { redirect_to(store_url)}
+        #When :remote => true, look at format.js
+        #Save @line_item as @current_item so effects can be added
+        format.js { @current_item = @line_item }
         format.xml  { render :xml => @line_item, :status => :created, :location => @line_item }
       else
         format.html { render :action => "new" }
@@ -85,11 +88,13 @@ class LineItemsController < ApplicationController
   # DELETE /line_items/1
   # DELETE /line_items/1.xml
   def destroy
+   
     @line_item = LineItem.find(params[:id])
     @line_item.destroy
-
+    
+    #Don't forget to add notice to view if using   
     respond_to do |format|
-      format.html { redirect_to(line_items_url) }
+      format.html { redirect_to(@line_item.cart, :notice => 'Line item deleted') }
       format.xml  { head :ok }
     end
   end

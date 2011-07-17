@@ -1,0 +1,11 @@
+#page variable is an instance of a JavaScrip generator (created on the server and executed on browser)
+#Replace contents of id=cart with new HTML from render(@cart)
+page.replace_html('cart', render(@cart))
+
+#Add sliding effect for cart when the first item is added
+
+page[:cart].visual_effect :blind_down if @cart.total_items == 1
+
+#:current_item maps to id "current_item" in the _line_items partial
+page[:current_item].visual_effect :highlight, :startcolor => "#88ff88", :endcolor => "#114411"
+

@@ -6,7 +6,8 @@ class LineItem < ActiveRecord::Base
   
   #This is the line item local variable total_price, not to be confused with the cart total_price
   def total_price
-    product.price * quantity
+    #Price draws from line_item.price
+    price * quantity
   end
   
 end

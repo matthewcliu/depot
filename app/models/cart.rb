@@ -12,6 +12,7 @@ class Cart < ActiveRecord::Base
     else
       #Builds a new line item
       current_item = line_items.build(:product_id => product_id)
+      current_item.price = current_item.product.price
     end
     #Returns current_item
     current_item
@@ -20,6 +21,11 @@ class Cart < ActiveRecord::Base
   #This is a local variable total_price, accessible by cart.
   def total_price
     line_items.to_a.sum { |item| item.total_price }
+  end
+  
+  #Checks for total number of line items in the cart
+  def total_items
+    line_items.sum(:quantity)
   end
   
 end
