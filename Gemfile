@@ -7,7 +7,6 @@ gem 'rails', '3.0.9'
 
 gem 'sqlite3', '1.3.3'
 
-require 'rake/dsl_definition'
 
 gem 'rake', '0.8.7'
 
