@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   
   #Filters by authorize method before EVERY action - this is different than railstutorial
   #Requires implementation of a whitelist
-  before_filter :authorize
+  #before_filter :authorize
   protect_from_forgery
   
   def store_counter_increment

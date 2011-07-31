@@ -7,6 +7,11 @@ Depot::Application.routes.draw do
     delete 'logout' => :destroy
   end
 
+  match 'questions' => 'other_pages#questions'
+  match 'news' => 'other_pages#news'
+  match 'contacts' => 'other_pages#contacts'
+  
+
   resources :users
 
   resources :orders

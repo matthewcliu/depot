@@ -23,10 +23,10 @@
 	    <% end %>
 	  <% end %>
 	
-      <a href="http://www....">Home</a><br /> 
-      <a href="http://www..../faq">Questions</a><br /> 
-      <a href="http://www..../news">News</a><br /> 
-      <a href="http://www..../contact">Contact</a><br /> 
+      <%= link_to 'Home', store_path %><br />
+      <%= link_to 'Questions', 'questions' %><br />
+      <%= link_to 'News', 'news' %><br />
+      <%= link_to 'Contacts', 'contacts' %><br />
 
       <% if session[:user_id] %>
 		<br />
