@@ -61,7 +61,7 @@ class OrdersController < ApplicationController
         #Clear session after an order has been completed
         session[:cart_id] = nil
         #Call to Notifier that will send an email out, passing in the current order
-        Notifier.order_received(@order).deliver
+        #Notifier.order_received(@order).deliver
         #Change the redirect to the index page
         format.html { redirect_to(store_url, :notice => 'Thank you for your order.') }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
@@ -81,7 +81,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.update_attributes(params[:order])
         # Send notification of ship date unless the ship date is nil
-        Notifier.order_shipped(@order).deliver unless @order.ship_date.nil?
+        #Notifier.order_shipped(@order).deliver unless @order.ship_date.nil?
         format.html { redirect_to(@order, :notice => 'Order was successfully updated.') }
         format.xml  { head :ok }
       else
