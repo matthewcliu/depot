@@ -1,0 +1,3 @@
+#Note the title of this page correspond sto destroy. This works for the DESTROY action in carts
+
+page[:cart].visual_effect :blind_up

@@ -1,4 +1,7 @@
 class CartsController < ApplicationController
+  #Whitelist - any user can access these controllers
+  skip_before_filter :authorize
+  
   # GET /carts
   # GET /carts.xml
   def index
@@ -88,7 +91,8 @@ class CartsController < ApplicationController
     session[:cart_id] = nil
 
     respond_to do |format|
-      format.html { redirect_to(store_url) }      
+      format.html { redirect_to(store_url) }
+      format.js      
       format.xml  { head :ok }
     end
   end

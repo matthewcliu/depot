@@ -80,4 +80,18 @@ class ProductsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  #Atom feeds - WTF
+  def who_bought
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      #Rails will look for who_bought.atom.builder in Products view.
+      format.atom
+      format.xml { render :xml => @product.to_xml(:include => :orders) }
+      format.html
+      format.json {render :json => @product.to_json(:include => :orders)}
+      
+    end
+  end
+  
 end

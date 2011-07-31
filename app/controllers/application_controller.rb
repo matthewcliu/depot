@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  
+  #Filters by authorize method before EVERY action - this is different than railstutorial
+  #Requires implementation of a whitelist
+  before_filter :authorize
   protect_from_forgery
   
   def store_counter_increment
@@ -12,6 +16,7 @@ class ApplicationController < ActionController::Base
   def store_counter_reset
     session[:counter] = nil
   end
+
   
   private
     #Making current_cart private means it is only available to other controllers since this is the ApplicationController
@@ -26,4 +31,12 @@ class ApplicationController < ActionController::Base
       #Return cart
       cart
     end
+  
+  protected
+    def authorize
+      unless User.find_by_id(session[:user_id])
+        redirect_to login_url, :notice => "Please log in"
+      end
+    end
+  
 end

@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  product: rails
-  cart: one
+  product: ruby
+  order: one
 
 two:
-  product: ruby
+  product: rails
   cart: one

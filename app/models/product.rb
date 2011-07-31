@@ -5,6 +5,8 @@ class Product < ActiveRecord::Base
   
   #Each product can be referenced by many line items
   has_many :line_items
+  #Through association
+  has_many :orders, :through => :line_items
   
   #Checks a hook method before destroying products - method needs to be true
   before_destroy :ensure_not_referenced_by_any_line_item

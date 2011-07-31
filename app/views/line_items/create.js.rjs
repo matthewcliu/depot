@@ -1,3 +1,6 @@
+#Kills the flash when a user takes further action on the page by scanning for #notice
+page.select("#notice").each { |notice| notice.hide }
+
 #page variable is an instance of a JavaScrip generator (created on the server and executed on browser)
 #Replace contents of id=cart with new HTML from render(@cart)
 page.replace_html('cart', render(@cart))

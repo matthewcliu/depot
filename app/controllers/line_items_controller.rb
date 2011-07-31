@@ -1,4 +1,7 @@
 class LineItemsController < ApplicationController
+  #Whitelist - any user can access these controllers
+  skip_before_filter :authorize
+  
   # GET /line_items
   # GET /line_items.xml
   def index
@@ -87,14 +90,17 @@ class LineItemsController < ApplicationController
 
   # DELETE /line_items/1
   # DELETE /line_items/1.xml
+
   def destroy
-   
-    @line_item = LineItem.find(params[:id])
-    @line_item.destroy
+    #Selects current cart
+    @cart = current_cart
+    #Change destroy so that it decrements before completely killing the line item
+    @line_item = @cart.decrement_line_item(LineItem.find(params[:id]))
     
     #Don't forget to add notice to view if using   
     respond_to do |format|
-      format.html { redirect_to(@line_item.cart, :notice => 'Line item deleted') }
+      format.js
+      format.html { redirect_to(store_url) }
       format.xml  { head :ok }
     end
   end

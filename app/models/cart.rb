@@ -18,6 +18,19 @@ class Cart < ActiveRecord::Base
     current_item
   end
   
+  def decrement_line_item(line_item)
+    #If quantity is 1, destroy the line item
+    if line_item.quantity == 1
+      line_item.destroy
+      false
+    #Otherwise decrement the line item
+    else
+      line_item.quantity -= 1
+      line_item.save
+      line_item
+    end
+  end
+  
   #This is a local variable total_price, accessible by cart.
   def total_price
     line_items.to_a.sum { |item| item.total_price }
